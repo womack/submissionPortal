@@ -4,7 +4,10 @@ const mongoose = restful.mongoose;
 
 //Schema
 const candidateSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    startTime: Number,
+    started: Boolean,
+    key: Number
 });
 
 //Return model
