@@ -5,10 +5,10 @@ const mongoose = restful.mongoose;
 //Schema
 const candidateSchema = new mongoose.Schema({
     name: String,
-    startTime: Number,
+    countDownDate: Number,
     started: Boolean,
-    key: Number,
-    documentURL: String    
+    givenKey: Number,
+    url: String    
 });
 
 //Return model

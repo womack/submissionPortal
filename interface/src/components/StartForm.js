@@ -6,7 +6,7 @@ export default class Startform extends Component {
         super();
         this.state = {
             name: "",
-            givenKey: 1234
+            givenKey: 433241
         }
     }
 
@@ -23,10 +23,21 @@ export default class Startform extends Component {
         this
             .props
             .onSubmit(this.state);
-        this.setState({name: "", givenKey: 1234});
     }
 
     render() {
+        let errorMessage = null;
+        if (this.props.badLogin) {
+            errorMessage = (
+                <div>
+                    <p style={{
+                        "color": "red"
+                    }}>
+                        Error logging in, check your name & key is correct
+                    </p>
+                </div>
+            );
+        }
         return (
             <form id="addmyData" onSubmit={this.handleSubmit}>
                 First & Last Name:
@@ -34,7 +45,7 @@ export default class Startform extends Component {
                     type="text"
                     name="name"
                     value={this.state.name}
-                    placeHolder="John Smith"
+                    placeholder="John Smith"
                     onChange={this.handleChange("name")}/>
                 <br/>
                 <br/>
@@ -44,12 +55,13 @@ export default class Startform extends Component {
                     name="givenKey"
                     value={this.state.givenKey}
                     onChange={this.handleChange("givenKey")}/>
-                    <br/>
-                    <br/>
-                    
+                <br/>
+                <br/>
+
                 <button>
                     Submit
                 </button>
+                <div className="errorMessage">{errorMessage}</div>
             </form>
         );
     }
