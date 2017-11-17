@@ -1,5 +1,8 @@
-class SubmissionForm extends Component {
+import React, {Component} from 'react';
+
+export default class SubmissionForm extends Component {
     constructor() {
+        super();
         this.state = {
             url: ""
         }
@@ -20,16 +23,18 @@ class SubmissionForm extends Component {
                 <h2>
                     Name: {this.props.name}</h2>
                 <h2>
-                    Time: {this.props.key}</h2>
+                    Key: {this.props.givenKey}</h2>
                 <h3>
                     Time: {this.props.timeLeft}</h3>
-
                 <form>
                     <input
                         type="text"
                         name="url"
                         value={this.state.url}
                         onChange={this.handleChange("url")}/>
+                    <button>
+                        Submit
+                    </button>
                 </form>
             </div>
         );

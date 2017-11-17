@@ -7,7 +7,8 @@ const candidateSchema = new mongoose.Schema({
     name: String,
     startTime: Number,
     started: Boolean,
-    key: Number
+    key: Number,
+    documentURL: String    
 });
 
 //Return model

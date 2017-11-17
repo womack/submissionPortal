@@ -1,38 +1,56 @@
 import React, {Component} from 'react';
 
-class Startform extends Component {
+export default class Startform extends Component {
 
     constructor() {
+        super();
         this.state = {
             name: "",
-            key: 0
+            givenKey: 1234
         }
     }
 
-    handleChange = (valueName) => (event) => this.setState({[valueName]: event.target.value});
+    handleChange = (valueName) => (event) => {
+        let inputVar = event.target.value;
+        if (parseInt(inputVar, 10)) {
+            inputVar = parseInt(inputVar, 10);
+        }
+        this.setState({[valueName]: inputVar})
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this
             .props
             .onSubmit(this.state);
-        this.setState({name: "", key: 0});
+        this.setState({name: "", givenKey: 1234});
     }
+
     render() {
         return (
             <form id="addmyData" onSubmit={this.handleSubmit}>
+                First & Last Name:
                 <input
                     type="text"
                     name="name"
                     value={this.state.name}
+                    placeHolder="John Smith"
                     onChange={this.handleChange("name")}/>
+                <br/>
+                <br/>
+                Key:
                 <input
                     type="number"
-                    name="key"
-                    value={this.state.key}
-                    onChange={this.handleChange("key")}/>
+                    name="givenKey"
+                    value={this.state.givenKey}
+                    onChange={this.handleChange("givenKey")}/>
+                    <br/>
+                    <br/>
+                    
+                <button>
+                    Submit
+                </button>
             </form>
         );
     }
 }
-
-export default Startform;
