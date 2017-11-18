@@ -6,7 +6,7 @@ const mongoose = restful.mongoose;
 const candidateSchema = new mongoose.Schema({
     name: String,
     countDownDate: Number,
-    started: Boolean,
+    submitted: Boolean,
     givenKey: Number,
     url: String    
 });

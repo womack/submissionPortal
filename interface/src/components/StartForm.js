@@ -20,6 +20,7 @@ export default class Startform extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+
         this
             .props
             .onSubmit(this.state);

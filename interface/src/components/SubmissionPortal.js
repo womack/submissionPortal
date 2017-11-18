@@ -3,6 +3,9 @@ import StartForm from "./StartForm";
 import SubmissionForm from "./SubmissionForm";
 import Thankyou from "./Thankyou";
 
+import {confirmAlert} from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
+
 export default class SubmissionPortal extends Component {
 
     //load accepted inputs from server
@@ -19,72 +22,87 @@ export default class SubmissionPortal extends Component {
         }
         this.loadCandidates();
     }
+
     loadCandidates = () => {
         let responsePromise = fetch("http://localhost:3001/api/candidate/");
-        responsePromise.then((response)=>{
-            console.log(response.body)  ;
-            
-            this.acceptedInputs = response;
-        })
-
+        responsePromise.then((response) => {
+            response
+                .json()
+                .then((actualResponse) => this.acceptedInputs = actualResponse);
+        });
     }
-    acceptedInputs = [
-        {
-            name: "Jeff Barnes",
-            givenKey: 1234,
-            submitted: true,
-            url: "dogs"
-        }, {
-            name: "Elliott Womack",
-            givenKey: 4321,
-            submitted: false,
-            url: ""
-        }
-    ];
+
+    acceptedInputs = []
 
     findUser = (nameToCompare, keyToCompare) => {
         return this
             .acceptedInputs
-            .find(({name, givenKey}) => {
-                return nameToCompare
-                    .toUpperCase()
-                    .includes(name.toUpperCase()) && keyToCompare === givenKey
-            });
+            .find(({name, givenKey}) => nameToCompare.toUpperCase().includes(name.toUpperCase()) && keyToCompare === givenKey);
+    }
+
+    updateServerWithUser(user) {
+        const request = new Request("http://localhost:3001/api/candidate/" + user._id, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+        return fetch(request).then((response) => response.json(), (err) => console.log(err));
     }
 
     handleCandidateSubmitInParent = ({name, givenKey}) => {
-        let user = this.findUser(name, givenKey);
+        const user = this.findUser(name, givenKey);
         let signedIn = false;
         if (user) {
             signedIn = true;
-            // Check if they have a date set already, if not created one and post it. If
-            // they have one, user that.
-            if (!user.date) {
-                user.date = new Date().getTime() + 2 * 3600000;
+            if (!user.countDownDate) {
+                user.countDownDate = new Date().getTime() + 2 * 3600000;
             }
-            let countDownDate = user.date;
-            this.setState({
-                name: user.name,
-                givenKey: user.givenKey,
-                signedIn,
-                countDownDate,
-                submitted: user.submitted,
-                url: user.url
-            } //if there is no user match
-            );
+            if (!user.submitted) {
+                confirmAlert({
+                    title: 'Confirm to start',
+                    message: 'Are you ready to start?',
+                    confirmLabel: 'Confirm',
+                    cancelLabel: 'Cancel',
+                    onConfirm: () => {
+                        this.signInUser(user, signedIn);
+                        this.updateServerWithUser(user);
+                    }, // Action after Confirm
+                    onCancel: () => {}, // Action after Cancel
+                });
+            } else {
+                this.signInUser(user, signedIn);
+            }
+
         } else {
             this.setState({badLogin: true});
         }
-        // get countdown date from server and set it When they log in, post a variable
-        // which should be the end date, so if they start at 12:00 on the 12th the end
-        // date should be 14:00 etc make post request to server to update that theyve
-        // logged in, to then decrement timer.
-
     }
 
     handleSubmissionSubmitInParent = ({url}) => {
         this.setState({url, submitted: true});
-        //make post request to server to update with url and submitted value.
+        const oldUserObj = this.findUser(this.state.name, this.state.givenKey);
+        const userObj = {
+            _id: oldUserObj._id,
+            name: oldUserObj.name,
+            countDownDate: this.state.countDownDate,
+            submitted: true,
+            givenKey: this.state.givenKey,
+            url: url
+        }
+        this.updateServerWithUser(userObj);
+    }
+
+    signInUser(user, signedIn) {
+        this.setState({
+            name: user.name,
+            givenKey: user.givenKey,
+            signedIn,
+            countDownDate: user.countDownDate,
+            submitted: user.submitted,
+            url: user.url
+        });
     }
 
     render() {
@@ -98,7 +116,6 @@ export default class SubmissionPortal extends Component {
                 </div>
             );
         }
-        console.log(this.state.countDownDate);
         if (this.state.signedIn) {
             return (
                 <div>
