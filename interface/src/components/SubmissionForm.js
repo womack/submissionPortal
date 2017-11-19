@@ -63,8 +63,8 @@ export default class SubmissionForm extends Component {
             <div>
                 <h3>Instructions</h3>
                 <p>Download/Open the following PDF, follow the instructions provided and then
-                    create a document (Word, PDF, Publisher), upload it, and provide the URL to the
-                    file in the box below.</p>
+                    create a document (Word, PDF, Publisher), upload it (Google drive, dropbox,
+                    etc.), and provide the shareable URL to the file in the box below.</p>
                 <p style={{
                     "color": "red"
                 }}>
