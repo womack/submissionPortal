@@ -29,22 +29,19 @@ export default class CandidateForm extends Component {
                         placeholder="Candidate Name to Create"
                         onChange={this.handleChange("name")}
                         value={this.state.name}/>
-                    <br/>
-                    Exercise:
+                    Exercise: 
+
                     <input
                         type="text"
                         placeholder="Exercise File"
                         onChange={this.handleChange("exerciseURL")}
                         value={this.state.exerciseURL}/>
-                    <br/>
                     Hours Given:
                     <input
                         type="number"
                         onChange={this.handleChange("hoursGiven")}
                         value={this.state.hoursGiven}/>
-                    <br/>
                     <button>Create</button>
-                    <br/>
                 </form>
             </div>
         );

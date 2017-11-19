@@ -58,7 +58,7 @@ export default class CandidateList extends Component {
                 return copiedCandidate;
             });
         return (
-            <div><br/><br/><br/><br/>
+            <div><br/>
                 <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}

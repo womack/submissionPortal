@@ -1,5 +1,9 @@
 .CandidateForm{
     position: absolute;
-    left:45%;
+    left:30%;
     top:270px;
+}
+input{
+    margin-left:5px;
+    margin-right:5px;
 }
