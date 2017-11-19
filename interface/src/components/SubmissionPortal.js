@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import StartForm from "./StartForm";
 import SubmissionForm from "./SubmissionForm";
 import Thankyou from "./Thankyou";
-
+import privates from "../privates";
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
 export default class SubmissionPortal extends Component {
+    acceptedInputs = []
 
-    //load accepted inputs from server
     constructor(props) {
         super(props);
         this.state = {
@@ -24,15 +24,13 @@ export default class SubmissionPortal extends Component {
     }
 
     loadCandidates = () => {
-        let responsePromise = fetch("http://localhost:3001/api/candidate/");
+        let responsePromise = fetch(`${privates.ip}`);
         responsePromise.then((response) => {
             response
                 .json()
                 .then((actualResponse) => this.acceptedInputs = actualResponse);
         });
     }
-
-    acceptedInputs = []
 
     findUser = (nameToCompare, keyToCompare) => {
         return this
@@ -41,7 +39,7 @@ export default class SubmissionPortal extends Component {
     }
 
     updateServerWithUser(user) {
-        const request = new Request("http://localhost:3001/api/candidate/" + user._id, {
+        const request = new Request(`${privates.ip}/` + user._id, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -68,13 +66,12 @@ export default class SubmissionPortal extends Component {
                     onConfirm: () => {
                         this.signInUser(user, signedIn);
                         this.updateServerWithUser(user);
-                    }, // Action after Confirm
-                    onCancel: () => {}, // Action after Cancel
+                    },
+                    onCancel: () => {}
                 });
             } else {
                 this.signInUser(user, signedIn);
             }
-
         } else {
             this.setState({badLogin: true});
         }
