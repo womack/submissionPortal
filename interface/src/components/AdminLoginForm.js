@@ -5,7 +5,7 @@ export default class AdminLoginForm extends Component {
     constructor() {
         super();
         this.state = {
-            password: ""
+            nb1234: ""
         };
     }
 
@@ -40,8 +40,8 @@ export default class AdminLoginForm extends Component {
                 <input
                     type="password"
                     name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange("password")}/>
+                    value={this.state.nb1234}
+                    onChange={this.handleChange("nb1234")}/>
                 <br/>
                 <br/>
                 <button>

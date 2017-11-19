@@ -57,8 +57,8 @@ export default class AdminInterface extends Component {
         });
     }
 
-    login = ({password}) => {
-        if (password === "qacadminlogin124") {
+    login = ({nb1234}) => {
+        if (nb1234 === "qacadmin124") {
             this.setState({loggedIn: true});
         } else {
             this.setState({badLogin: true});
