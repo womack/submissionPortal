@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import CandidateList from "./CandidateList";
 import CandidateForm from "./CandidateForm";
-
+import AdminLoginForm from "./AdminLoginForm";
 import privates from "../privates";
 
 export default class AdminInterface extends Component {
@@ -9,6 +9,8 @@ export default class AdminInterface extends Component {
     constructor() {
         super();
         this.state = {
+            loggedIn: false,
+            badLogIn: false,
             candidates: []
         }
         this.loadCandidates();
@@ -57,13 +59,28 @@ export default class AdminInterface extends Component {
         });
     }
 
-    render() {
-        return (
-            <div>
-                <CandidateList deleteUser={this.deleteUser} candidates={this.state.candidates}/>
-                <CandidateForm onSubmit={this.createCandidate}/>
+    login = ({password}) => {
+        if (password === "qacadminlogin124") {
+            this.setState({loggedIn: true});
+        } else {
+            this.setState({badLogin: true});
+        }
+    }
 
-            </div>
-        );
+    render() {
+        if (this.state.loggedIn) {
+            return (
+                <div>
+                    <CandidateList deleteUser={this.deleteUser} candidates={this.state.candidates}/>
+                    <CandidateForm onSubmit={this.createCandidate}/>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <AdminLoginForm onSubmit={this.login} badLogin={this.state.badLogin}/>
+                </div>
+            );
+        }
     }
 }

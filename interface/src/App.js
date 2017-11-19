@@ -18,7 +18,7 @@ class App extends Component {
           <hr/>
           <br/>
           <Route exact path="/" component={SubmissionPortal}/>
-          <Route path="/admin" component={AdminInterface}/>
+          <Route path="/admininterface" component={AdminInterface}/>
         </div>
       </Router>
     );
