@@ -6,12 +6,12 @@ export default class AdminLoginForm extends Component {
         super();
         this.state = {
             password: ""
-        }
+        };
     }
 
     handleChange = (valueName) => (event) => {
         const inputVar = event.target.value;
-        this.setState({[valueName]: inputVar})
+        this.setState({[valueName]: inputVar});
     }
 
     handleSubmit = (e) => {

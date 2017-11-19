@@ -20,7 +20,7 @@ export default class SubmissionPortal extends Component {
             submitted: false,
             badLogin: false,
             exerciseURL: ""
-        }
+        };
         this.loadCandidates();
     }
 
@@ -88,7 +88,7 @@ export default class SubmissionPortal extends Component {
             countDownDate: this.state.countDownDate,
             submitted: true,
             givenKey: this.state.givenKey,
-            url: url,
+            url,
             exerciseURL: oldUserObj.exerciseURL
         }
         this.updateServerWithUser(userObj);

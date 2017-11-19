@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {confirmAlert} from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default class SubmissionForm extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ export default class SubmissionForm extends Component {
             timeLeft: this.calculateTimeLeft(),
             abconstoSubmit: true,
             intervalId: setInterval(this.timerFunction, 1000)
-        }
+        };
     }
     componentWillUnmount() {
         clearInterval(this.state.intervalId);
@@ -57,7 +57,7 @@ export default class SubmissionForm extends Component {
                 <div>
                     You have run out of time! Sorry about that, contact your recruiter to find out
                     the next steps.</div>
-            )
+            );
         }
         return (
             <div>

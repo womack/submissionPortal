@@ -7,7 +7,7 @@ export default class Startform extends Component {
         this.state = {
             name: "",
             givenKey: 433241
-        }
+        };
     }
 
     handleChange = (valueName) => (event) => {
@@ -15,7 +15,7 @@ export default class Startform extends Component {
         if (parseInt(inputVar, 10)) {
             inputVar = parseInt(inputVar, 10);
         }
-        this.setState({[valueName]: inputVar})
+        this.setState({[valueName]: inputVar});
     }
 
     handleSubmit = (e) => {

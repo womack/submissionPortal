@@ -12,17 +12,12 @@ export default class AdminInterface extends Component {
             loggedIn: false,
             badLogIn: false,
             candidates: []
-        }
+        };
         this.loadCandidates();
     }
 
     loadCandidates = () => {
-        let responsePromise = fetch(`${privates.ip}`);
-        responsePromise.then((response) => {
-            response
-                .json()
-                .then((actualResponse) => this.setState({candidates: actualResponse}));
-        });
+        fetch(`${privates.ip}`).then((response) => response.json().then((actualResponse) => this.setState({candidates: actualResponse})));
     }
 
     deleteUser = (id) => {

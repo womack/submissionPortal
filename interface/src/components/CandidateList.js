@@ -1,45 +1,43 @@
 import React, {Component} from 'react';
-// import Candidate from './Candidate/Candidate';
-import './CandidateList.css';
 import ReactTable from 'react-table';
 import {confirmAlert} from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'
-import 'react-table/react-table.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'react-table/react-table.css';
+
 export default class CandidateList extends Component {
 
+    columns = [
+        {
+            Header: 'Name',
+            accessor: 'name',
+            filterable: true
+        }, {
+            Header: 'PIN',
+            accessor: 'givenKey',
+            filterable: false
+        }, {
+            Header: 'Exercise URL',
+            accessor: 'exerciseURL',
+            filterable: true
+        }, {
+            Header: 'Time Given',
+            accessor: 'timeGiven',
+            filterable: false
+        }, {
+            Header: 'Submission URL',
+            accessor: 'url',
+            filterable: false
+        }, {
+            Header: 'Submission Deadline',
+            accessor: 'countDownDate',
+            filterable: false
+        }, {
+            Header: "Delete",
+            accessor: "removeChar",
+            filterable: false
+        }
+    ];
     render() {
-        const columns = [
-            {
-                Header: 'Name',
-                accessor: 'name',
-                filterable: true
-            }, {
-                Header: 'PIN',
-                accessor: 'givenKey',
-                filterable: false
-            }, {
-                Header: 'Exercise URL',
-                accessor: 'exerciseURL',
-                filterable: true
-            }, {
-                Header: 'Time Given',
-                accessor: 'timeGiven',
-                filterable: false
-            }, {
-                Header: 'Submission URL',
-                accessor: 'url',
-                filterable: false
-            }, {
-                Header: 'Submission Deadline',
-                accessor: 'countDownDate',
-                filterable: false
-            }, {
-                Header: "Delete",
-                accessor: "removeChar",
-                filterable: false
-            }
-        ]
-
         const data = this
             .props
             .candidates
@@ -54,16 +52,17 @@ export default class CandidateList extends Component {
                     const time = new Date(candidate.countDownDate).toLocaleTimeString();
                     copiedCandidate.countDownDate = `${actualDate} ${time}`;
                 }
-                copiedCandidate.removeChar = "Remove"
+                copiedCandidate.removeChar = "Remove";
                 return copiedCandidate;
             });
+
         return (
             <div><br/>
                 <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
                     data={data}
-                    columns={columns}
+                    columns={this.columns}
                     getTdProps={(state, rowInfo, column, instance) => {
                     return {
                         onClick: e => {
