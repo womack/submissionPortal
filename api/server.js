@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 const apiRoutes = require("./routes/api");
 
 //MongoDB
@@ -12,8 +11,8 @@ mongoose.connect("mongodb://localhost/submissionDB", {useMongoClient: true});
 
 //Express
 const app = express();
-const port = 3000;
-app.use(cors({origin: "http://submission.ewomack.com"}));
+const port = 3001;
+app.use(cors({origin: "*"}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -21,10 +20,9 @@ app.use(bodyParser.json());
 app.use("/api", apiRoutes);
 
 // app.put("/addWeek", (req, res) => {     console.log(req.body);
-// trainer.findOneAndUpdate({         "name": req.body.name     }, {
-// $push: {             "feedback": req.body.feedback[0]         }     }, {
-//    new: true     }, (err, resp) => {         if (err) {             return
-// res.send(err)         };         res.send("Added Successfully");     }); });
-// Starting Server
+// trainer.findOneAndUpdate({         "name": req.body.name     }, { $push: {
+// "feedback": req.body.feedback[0]         }     }, {    new: true }, (err,
+// resp) => {         if (err) {             return res.send(err)   };
+// res.send("Added Successfully");     }); }); Starting Server
 app.listen(port);
 console.log(`Running on ${port}`);

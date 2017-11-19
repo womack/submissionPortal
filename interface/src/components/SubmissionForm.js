@@ -8,7 +8,7 @@ export default class SubmissionForm extends Component {
         this.state = {
             url: "",
             timeLeft: this.calculateTimeLeft(),
-            ableToSubmit: true,
+            abconstoSubmit: true,
             intervalId: setInterval(this.timerFunction, 1000)
         }
     }
@@ -21,14 +21,14 @@ export default class SubmissionForm extends Component {
         });
     }
     calculateTimeLeft = () => {
-        let now = new Date().getTime();
-        let distance = this.props.countDownDate - now;
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const now = new Date().getTime();
+        const distance = this.props.countDownDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
         if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
-            this.setState({ableToSubmit: false});
+            this.setState({abconstoSubmit: false});
         }
         return `${days} Days  ${hours} Hours  ${minutes} Minutes  ${seconds} Seconds`;
     }
@@ -52,7 +52,7 @@ export default class SubmissionForm extends Component {
     }
 
     render() {
-        if (!this.state.ableToSubmit) {
+        if (!this.state.abconstoSubmit) {
             return (
                 <div>
                     You have run out of time! Sorry about that, contact your recruiter to find out
@@ -77,8 +77,12 @@ export default class SubmissionForm extends Component {
                         Key: {this.props.givenKey}</h2>
                     <h3>
                         Time: {this.state.timeLeft}</h3>
+                    <h3>
+                        Exercise:
+                        <a target="_blank" href={this.props.exerciseURL}>Click Here</a>
+                    </h3>
                     <form>
-                        Document URL:
+                        Submission document URL:
                         <input
                             type="text"
                             name="url"

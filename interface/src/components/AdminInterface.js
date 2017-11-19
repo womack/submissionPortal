@@ -32,14 +32,17 @@ export default class AdminInterface extends Component {
         fetch(request);
     }
 
-    createCandidate = ({name}) => {
+    createCandidate = ({name, exerciseURL, hoursGiven}) => {
         const randomPin = Math.floor(Math.random() * 999999);
+        const timeGiven = hoursGiven;
         const userObj = {
             name,
             givenKey: randomPin,
             url: "",
             submitted: false,
-            countDownDate: 0
+            countDownDate: 0,
+            exerciseURL,
+            timeGiven
         };
         const request = new Request(`${privates.ip}`, {
             method: "POST",

@@ -18,7 +18,8 @@ export default class SubmissionPortal extends Component {
             countDownDate: "",
             signedIn: false,
             submitted: false,
-            badLogin: false
+            badLogin: false,
+            exerciseURL: ""
         }
         this.loadCandidates();
     }
@@ -52,10 +53,11 @@ export default class SubmissionPortal extends Component {
     handleCandidateSubmitInParent = ({name, givenKey}) => {
         const user = this.findUser(name, givenKey);
         let signedIn = false;
+        const timeGiven = parseInt(user.timeGiven, 10);
         if (user) {
             signedIn = true;
             if (!user.countDownDate) {
-                user.countDownDate = new Date().getTime() + 2 * 3600000;
+                user.countDownDate = new Date().getTime() + (timeGiven * 3600000);
             }
             if (!user.submitted) {
                 confirmAlert({
@@ -86,7 +88,8 @@ export default class SubmissionPortal extends Component {
             countDownDate: this.state.countDownDate,
             submitted: true,
             givenKey: this.state.givenKey,
-            url: url
+            url: url,
+            exerciseURL: oldUserObj.exerciseURL
         }
         this.updateServerWithUser(userObj);
     }
@@ -98,7 +101,8 @@ export default class SubmissionPortal extends Component {
             signedIn,
             countDownDate: user.countDownDate,
             submitted: user.submitted,
-            url: user.url
+            url: user.url,
+            exerciseURL: user.exerciseURL
         });
     }
 
@@ -120,6 +124,7 @@ export default class SubmissionPortal extends Component {
                         onSubmit={this.handleSubmissionSubmitInParent}
                         countDownDate={this.state.countDownDate}
                         givenKey={this.state.givenKey}
+                        exerciseURL={this.state.exerciseURL}
                         name={this.state.name}/>
                 </div>
             );

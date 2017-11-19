@@ -8,7 +8,9 @@ const candidateSchema = new mongoose.Schema({
     countDownDate: Number,
     submitted: Boolean,
     givenKey: Number,
-    url: String    
+    exerciseURL: String,
+    timeGiven: Number,
+    url: String
 });
 
 //Return model

@@ -18,7 +18,15 @@ export default class CandidateList extends Component {
                 accessor: 'givenKey',
                 filterable: false
             }, {
-                Header: 'URL',
+                Header: 'Exercise URL',
+                accessor: 'exerciseURL',
+                filterable: true
+            }, {
+                Header: 'Time Given',
+                accessor: 'timeGiven',
+                filterable: false
+            }, {
+                Header: 'Submission URL',
                 accessor: 'url',
                 filterable: false
             }, {
@@ -31,11 +39,6 @@ export default class CandidateList extends Component {
                 filterable: false
             }
         ]
-        // const candidates = (     <div className="CandidateList">         {this .props
-        //             .candidates             .map((candidate, index) => { return
-        // (<Candidate                     name={candidate.name}
-        // countDownDate={candidate.countDownDate} url={candidate.url} key={index}
-        // givenKey={candidate.givenKey}/>);             })} </div> );
 
         const data = this
             .props
@@ -55,7 +58,7 @@ export default class CandidateList extends Component {
                 return copiedCandidate;
             });
         return (
-            <div><br/><br/>
+            <div><br/><br/><br/><br/>
                 <ReactTable
                     filterable
                     defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
