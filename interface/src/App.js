@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import qaclogo from './images/qac.png';
 import SubmissionPortal from "./components/SubmissionPortal";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import AdminInterface from './components/AdminInterface';
 
 import './App.css';
