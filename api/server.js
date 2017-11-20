@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost/submissionDB", {useMongoClient: true});
 
 //Express
 const app = express();
-const port = 3000;
+const port = 8080;
 app.use(cors({origin: "http://submission.ewomack.com"}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
