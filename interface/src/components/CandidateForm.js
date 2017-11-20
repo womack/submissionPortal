@@ -22,14 +22,16 @@ export default class CandidateForm extends Component {
     render() {
         return (
             <div className="CandidateForm">
+                Create Candidate
+                <br/>
                 <form onSubmit={this.handleSubmit}>
-                Name:
+                    Name:
                     <input
                         type="text"
                         placeholder="Candidate Name to Create"
                         onChange={this.handleChange("name")}
                         value={this.state.name}/>
-                    Exercise: 
+                    Exercise:
 
                     <input
                         type="text"
